@@ -1,0 +1,15 @@
+{
+    "name": "zendzo/press",
+    "description": "An elegant makrdown-powered blog for the Laravel framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zendzo",
+            "email": "zendzzo@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^6.4"
+    }
+}
