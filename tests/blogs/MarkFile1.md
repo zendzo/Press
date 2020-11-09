@@ -1,6 +1,6 @@
 ---
-title: My Blog Post
-Description: Here is description
+title: My title
+description: Here is description
 ---
 
 Blog body belongs here
