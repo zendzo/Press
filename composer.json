@@ -8,8 +8,18 @@
             "email": "zendzzo@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "erusev/parsedown": "^1.7"
+    },
     "require-dev": {
         "orchestra/testbench": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "zendzo\\Press\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "zendzo\\Press\\Tests\\" : "tests/"
     }
 }
