@@ -12,7 +12,8 @@
         "erusev/parsedown": "^1.7"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.4"
+        "orchestra/testbench": "^6.4",
+        "laravel/legacy-factories": "^1.0.4"
     },
     "autoload": {
         "psr-4": {
