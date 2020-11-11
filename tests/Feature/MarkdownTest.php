@@ -2,10 +2,9 @@
 
 namespace zendzo\Press\Tests;
 
-use Orchestra\Testbench\TestCase as TestbenchTestCase;
 use zendzo\Press\MarkdownParser;
 
-class MarkDownTest extends TestbenchTestCase
+class MarkDownTest extends TestCase
 {
   /** @test */
   public function simple_markdown_is_parse()
