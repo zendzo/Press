@@ -20,6 +20,8 @@
         }
     },
     "autoload-dev": {
-        "zendzo\\Press\\Tests\\" : "tests/"
+        "psr-4": {
+            "zendzo\\Press\\Tests\\": "tests/"
+        }
     }
 }
