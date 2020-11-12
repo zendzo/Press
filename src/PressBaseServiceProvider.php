@@ -8,6 +8,9 @@ class PressBaseServiceProvider extends ServiceProvider
 {
   public function boot()
   {
+    if ($this->app->runningInConsole()) {
+      $this->regsiterPublishing();
+    }
       $this->registerResources();
   }
 
@@ -21,5 +24,12 @@ class PressBaseServiceProvider extends ServiceProvider
   public function registerResources()
   {
     $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+  }
+
+  protected function regsiterPublishing()
+  {
+    $this->publishes([
+      __DIR__.'/../config/press.php' => config_path('press.php')
+    ], 'press-config');
   }
 }

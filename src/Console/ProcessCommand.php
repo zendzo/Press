@@ -3,6 +3,10 @@
 namespace zendzo\Press\Console;
 
 use illuminate\Console\Command;
+use illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use zendzo\Press\PressFileParser;
+use zendzo\Press\Models\Post;
 
 class ProcessCommand extends Command
 {
@@ -29,6 +33,22 @@ class ProcessCommand extends Command
 
     public function handle()
     {
-        $this->info('Hello World \n');
+        if (is_null(config('press'))) {
+          $this->warn('please publish the config by running '.'\'php artisan vendor:publish --tag=press-config\'');
+        }
+        // fetch all post
+        $files = File::files(config('press.path'));
+        // process each file
+        foreach ($files as $file) {
+          $post = (new PressFileParser($file->getPathname()))->getData();
+        }
+        // presist to the DB
+         Post::create([
+          'identifier' => Str::random(16),
+          'slug' => Str::slug($post['title']),
+          'title' => $post['title'],
+          'body' => $post['body'],
+          'extra' => $post['extra'] ?? null
+         ]);
     }
 }
