@@ -14,7 +14,7 @@ class Press
   public static function driver()
   {
     $driver = Str::title(config('press.driver'));
-    $class = 'zendzo\Press\Driver\\' . $driver . 'Driver';
+    $class = 'zendzo\Press\Drivers\\' . $driver . 'Driver';
 
     return new $class;
   }
