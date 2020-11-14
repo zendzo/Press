@@ -36,16 +36,20 @@ class ProcessCommand extends Command
       $this->warn('please publish the config by running ' . '\'php artisan vendor:publish --tag=press-config\'');
     }
 
-    $posts = Press::driver()->fetchPosts();
-    
-    foreach ($posts as $post) {
-      Post::create([
-        'identifier' => Str::random(16),
-        'slug' => Str::slug($post['title']),
-        'title' => $post['title'],
-        'body' => $post['body'],
-        'extra' => $post['extra'] ?? null
-      ]);
+    try {
+      $posts = Press::driver()->fetchPosts();
+
+      foreach ($posts as $post) {
+        Post::create([
+          'identifier' => $post['identifier'],
+          'slug' => Str::slug($post['title']),
+          'title' => $post['title'],
+          'body' => $post['body'],
+          'extra' => $post['extra'] ?? null
+        ]);
+      }
+    } catch (\Exception $e) {
+      $this->error($e->getMessage());
     }
   }
 }
