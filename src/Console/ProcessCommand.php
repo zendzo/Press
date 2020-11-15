@@ -5,7 +5,7 @@ namespace zendzo\Press\Console;
 use illuminate\Console\Command;
 use illuminate\Support\Str;
 use zendzo\Press\Models\Post;
-use zendzo\Press\Press;
+use zendzo\Press\Facades\Press;
 
 class ProcessCommand extends Command
 {
