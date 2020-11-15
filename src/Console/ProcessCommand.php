@@ -6,6 +6,7 @@ use illuminate\Console\Command;
 use illuminate\Support\Str;
 use zendzo\Press\Models\Post;
 use zendzo\Press\Facades\Press;
+use zendzo\Press\Repositories\PostRepository;
 
 class ProcessCommand extends Command
 {
@@ -30,7 +31,7 @@ class ProcessCommand extends Command
     parent::__construct();
   }
 
-  public function handle()
+  public function handle(PostRepository $postRepository)
   {
     if (Press::configNotPublish()) {
       $this->warn('please publish the config by running ' . '\'php artisan vendor:publish --tag=press-config\'');
@@ -38,15 +39,10 @@ class ProcessCommand extends Command
 
     try {
       $posts = Press::driver()->fetchPosts();
-
+      $this->info('Number of Post : ' . count($posts));
       foreach ($posts as $post) {
-        Post::create([
-          'identifier' => $post['identifier'],
-          'slug' => Str::slug($post['title']),
-          'title' => $post['title'],
-          'body' => $post['body'],
-          'extra' => $post['extra'] ?? null
-        ]);
+        $postRepository->save($post);
+        $this->info('Post : '. $post['title']);
       }
     } catch (\Exception $e) {
       $this->error($e->getMessage());
