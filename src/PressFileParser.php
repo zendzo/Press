@@ -2,9 +2,10 @@
 
 namespace zendzo\Press;
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use ReflectionClass;
+use zendzo\Press\Facades\Press;
 
 class PressFileParser
 {
@@ -55,15 +56,26 @@ class PressFileParser
 	{
 		foreach ($this->data as $field => $value) {
 
-			$class = 'zendzo\\Press\\Fields\\' . Str::title($field);
+			$class = $this->getField(Str::title($field));
 
-			if ( !class_exists($class) && !method_exists($class, 'process')) {
+			if (!class_exists($class) && !method_exists($class, 'process')) {
 				$class = 'zendzo\\Press\\Fields\\Extra';
 			}
 			$this->data = array_merge(
 				$this->data,
 				$class::process($field, $value, $this->data),
 			);
+		}
+	}
+
+	public function getField($field)
+	{
+		foreach (Press::availableFields() as $availableField) {
+			$class = new ReflectionClass($availableField);
+
+			if ($class->getShortName() === $field) {
+				return $class->getName();
+			}
 		}
 	}
 }
