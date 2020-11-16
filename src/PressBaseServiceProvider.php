@@ -31,6 +31,7 @@ class PressBaseServiceProvider extends ServiceProvider
     // register facades first berfore everything else
     $this->registerFacades();
     $this->registerRoutes();
+    $this->registerFields();
   }
 
   protected function registerRoutes()
@@ -59,5 +60,16 @@ class PressBaseServiceProvider extends ServiceProvider
     $this->app->singleton('Press', function ($app) {
       return new \zendzo\Press\Press();
     });
+  }
+
+  private function registerFields()
+  {
+     Press::Fields([
+       Fields\Body::class,
+       Fields\Date::class,
+       Fields\Description::class,
+       Fields\Extra::class,
+       Fields\Title::class,
+     ]);
   }
 }
