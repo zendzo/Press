@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Providers;
+use illuminate\Support\ServiceProvider;
+use zendzo\Press\Facades\Press;
+
+class PressServiceProvider extends ServiceProvider
+{
+  public function boot()
+  {
+     Press::fields($this->registerFields());
+  }
+
+  public function register()
+  {
+    # code...
+  }
+
+  public function registerFields()
+  {
+     return [
+      //   
+     ];
+  }
+}
